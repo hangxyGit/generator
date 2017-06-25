@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 /*
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,21 +68,21 @@ public class ConfigurationParser {
      * This constructor accepts a properties object which may be used to specify
      * an additional property set.  Typically this property set will be Ant or Maven properties
      * specified in the build.xml file or the POM.
-     * 
-     * <p>If there are name collisions between the different property sets, they will be 
+     * <p>
+     * <p>If there are name collisions between the different property sets, they will be
      * resolved in this order:
-     * 
+     * <p>
      * <ol>
-     *   <li>System properties take highest precedence</li>
-     *   <li>Properties specified in the &lt;properties&gt; configuration
-     *       element are next</li>
-     *   <li>Properties specified in this "extra" property set are
-     *       lowest precedence.</li>
+     * <li>System properties take highest precedence</li>
+     * <li>Properties specified in the &lt;properties&gt; configuration
+     * element are next</li>
+     * <li>Properties specified in this "extra" property set are
+     * lowest precedence.</li>
      * </ol>
-     * 
+     *
      * @param extraProperties an (optional) set of properties used to resolve property
-     *     references in the configuration file
-     * @param warnings any warnings are added to this array
+     *                        references in the configuration file
+     * @param warnings        any warnings are added to this array
      */
     public ConfigurationParser(Properties extraProperties, List<String> warnings) {
         super();
@@ -156,12 +156,10 @@ public class ConfigurationParser {
             Element rootNode = document.getDocumentElement();
             DocumentType docType = document.getDoctype();
             if (rootNode.getNodeType() == Node.ELEMENT_NODE
-                    && docType.getPublicId().equals(
-                            XmlConstants.IBATOR_CONFIG_PUBLIC_ID)) {
+                    && XmlConstants.IBATOR_CONFIG_PUBLIC_ID.equals(docType.getPublicId())) {
                 config = parseIbatorConfiguration(rootNode);
             } else if (rootNode.getNodeType() == Node.ELEMENT_NODE
-                    && docType.getPublicId().equals(
-                            XmlConstants.MYBATIS_GENERATOR_CONFIG_PUBLIC_ID)) {
+                    && XmlConstants.MYBATIS_GENERATOR_CONFIG_PUBLIC_ID.equals(docType.getPublicId())) {
                 config = parseMyBatisGeneratorConfiguration(rootNode);
             } else {
                 throw new XMLParserException(getString("RuntimeError.5")); //$NON-NLS-1$

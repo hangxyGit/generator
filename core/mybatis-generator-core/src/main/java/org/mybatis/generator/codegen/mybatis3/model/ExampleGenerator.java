@@ -97,6 +97,58 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
 
+
+        // add field, getter, setter for limit
+        field = new Field();
+        field.setVisibility(JavaVisibility.PROTECTED);
+        field.setType(FullyQualifiedJavaType.getIntInstance());
+        field.setName("limit"); //$NON-NLS-1$
+        commentGenerator.addFieldComment(field, introspectedTable);
+        topLevelClass.addField(field);
+
+        method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setName("setLimit"); //$NON-NLS-1$
+        method.addParameter(new Parameter(FullyQualifiedJavaType
+                .getIntInstance(), "limit")); //$NON-NLS-1$
+        method.addBodyLine("this.limit = limit;"); //$NON-NLS-1$
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+
+        method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setName("getLimit"); //$NON-NLS-1$
+        method.addBodyLine("return limit;"); //$NON-NLS-1$
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+
+
+        // add field, getter, setter for offset
+        field = new Field();
+        field.setVisibility(JavaVisibility.PROTECTED);
+        field.setType(FullyQualifiedJavaType.getIntInstance());
+        field.setName("offset"); //$NON-NLS-1$
+        commentGenerator.addFieldComment(field, introspectedTable);
+        topLevelClass.addField(field);
+
+        method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setName("setOffset"); //$NON-NLS-1$
+        method.addParameter(new Parameter(FullyQualifiedJavaType
+                .getIntInstance(), "offset")); //$NON-NLS-1$
+        method.addBodyLine("this.offset = offset;"); //$NON-NLS-1$
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+
+        method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setName("getOffset"); //$NON-NLS-1$
+        method.addBodyLine("return offset;"); //$NON-NLS-1$
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+
         // add field, getter, setter for distinct
         field = new Field();
         field.setVisibility(JavaVisibility.PROTECTED);

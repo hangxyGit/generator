@@ -22,7 +22,7 @@
   
   <!DOCTYPE generatorConfiguration PUBLIC
     "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+    "http://mybatis.org/dtd/F _1_0.dtd">
   
   Please see the documentation included with MyBatis generator for details on each option
   in the DTD.  You may also view documentation on-line here:
@@ -162,6 +162,12 @@
   enableInsert CDATA #IMPLIED
   enableSelectByPrimaryKey CDATA #IMPLIED
   enableSelectByExample CDATA #IMPLIED
+  enableSelectPaginationByExample CDATA #IMPLIED
+  enableInsertOrUpdateBySelective CDATA #IMPLIED
+  enableBatchInsert CDATA #IMPLIED
+  enableBatchUpdate CDATA #IMPLIED
+  enableBatchUpdateBySelective CDATA #IMPLIED
+
   enableUpdateByPrimaryKey CDATA #IMPLIED
   enableDeleteByPrimaryKey CDATA #IMPLIED
   enableDeleteByExample CDATA #IMPLIED

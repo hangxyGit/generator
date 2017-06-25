@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 /*
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,7 +65,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * This class parses configuration files into the new Configuration API.
- * 
+ *
  * @author Jeff Butler
  */
 public class MyBatisGeneratorConfigurationParser {
@@ -283,6 +283,40 @@ public class MyBatisGeneratorConfigurationParser {
                     isTrue(enableSelectByExample));
         }
 
+        String enableSelectPaginationByExample = attributes
+                .getProperty("enableSelectPaginationByExample"); //$NON-NLS-1$
+        if (stringHasValue(enableSelectPaginationByExample)) {
+            tc.setSelectPaginationByExampleStatementEnabled(
+                    isTrue(enableSelectPaginationByExample));
+        }
+
+
+        String enableInsertOrUpdateBySelective = attributes
+                .getProperty("enableInsertOrUpdateBySelective"); //$NON-NLS-1$
+        if (stringHasValue(enableInsertOrUpdateBySelective)) {
+            tc.setInsertOrUpdateBySelectiveEnabled(
+                    isTrue(enableInsertOrUpdateBySelective));
+        }
+
+        String enableBatchInsert = attributes
+                .getProperty("enableBatchInsert"); //$NON-NLS-1$
+        if (stringHasValue(enableBatchInsert)) {
+            tc.setBatchInsertEnabled(isTrue(enableBatchInsert));
+        }
+
+        String enableBatchUpdate = attributes
+                .getProperty("enableBatchUpdate"); //$NON-NLS-1$
+        if (stringHasValue(enableBatchUpdate)) {
+            tc.setBatchUpdateEnabled(isTrue(enableBatchUpdate));
+        }
+
+        String enableBatchUpdateBySelective = attributes
+                .getProperty("enableBatchUpdateBySelective"); //$NON-NLS-1$
+        if (stringHasValue(enableBatchUpdateBySelective)) {
+            tc.setBatchUpdateBySelectiveEnabled(
+                    isTrue(enableBatchUpdateBySelective));
+        }
+
         String enableUpdateByPrimaryKey = attributes
                 .getProperty("enableUpdateByPrimaryKey"); //$NON-NLS-1$
         if (stringHasValue(enableUpdateByPrimaryKey)) {
@@ -328,6 +362,12 @@ public class MyBatisGeneratorConfigurationParser {
                 .getProperty("selectByExampleQueryId"); //$NON-NLS-1$
         if (stringHasValue(selectByExampleQueryId)) {
             tc.setSelectByExampleQueryId(selectByExampleQueryId);
+        }
+
+        String selectPaginationByExampleQueryId = attributes
+                .getProperty("selectPaginationByExampleQueryId"); //$NON-NLS-1$
+        if (stringHasValue(selectPaginationByExampleQueryId)) {
+            tc.setSelectPaginationByExampleQueryId(selectPaginationByExampleQueryId);
         }
 
         String modelType = attributes.getProperty("modelType"); //$NON-NLS-1$
@@ -775,10 +815,10 @@ public class MyBatisGeneratorConfigurationParser {
      * This method resolve a property from one of the three sources: system properties,
      * properties loaded from the &lt;properties&gt; configuration element, and
      * "extra" properties that may be supplied by the Maven or Ant environments.
-     * 
+     *
      * <p>If there is a name collision, system properties take precedence, followed by
      * configuration properties, followed by extra properties.
-     * 
+     *
      * @param key property key
      * @return the resolved property.  This method will return null if the property is
      *     undefined in any of the sources.

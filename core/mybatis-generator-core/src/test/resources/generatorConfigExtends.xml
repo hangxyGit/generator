@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!--
+<!DOCTYPE generatorConfiguration
+        SYSTEM "/Users/yh-treefinance/MyApp/Github/mybatis-generator/core/mybatis-generator-core/src/main/resources/org/mybatis/generator/config/xml/mybatis-generator-config_1_0.dtd">
+-->
+
+<generatorConfiguration>
+    <classPathEntry
+            location="/Users/yh-treefinance/MyApp/Github/mybatis-generator/core/mybatis-generator-core/target/test-classes/driver/mysql-connector-java-5.1.41.jar"/>
+    <context id="pageContext" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
+
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!--<plugin type="org.mybatis.generator.plugins.PaginationPlugin"/>-->
+
+        <commentGenerator>
+            <!-- 去除自动生成的注释 -->
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.5.24:3306/saas_monitor"
+                        userId="root"
+                        password="Tianxing@0701">
+        </jdbcConnection>
+
+        <!-- NOTE: When targetProject is set to "MAVEN", the default output is type/generated-sources/mybatis-generator -->
+
+        <javaModelGenerator targetPackage="test.entity"
+                            targetProject="src/test/java"><!-- src/generated/java -->
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="sqlmap"
+                         targetProject="src/test/resources"> <!-- src/generated/resources -->
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="test.mapper"
+                             targetProject="src/test/java"> <!-- src/generated/java -->
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <table tableName="merchant_stat_day_access" domainObjectName="MerchantStatDayAccess"
+               enableSelectPaginationByExample="true"
+               enableInsertOrUpdateBySelective="true"
+               enableBatchInsert="true"
+               enableBatchUpdate="true"
+               enableBatchUpdateBySelective="true">
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="Id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+    </context>
+
+</generatorConfiguration>

@@ -1,56 +1,42 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api;
 
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import org.mybatis.generator.config.Context;
-import org.mybatis.generator.config.GeneratedKey;
-import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
-import org.mybatis.generator.config.JavaModelGeneratorConfiguration;
-import org.mybatis.generator.config.ModelType;
-import org.mybatis.generator.config.PropertyHolder;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.config.SqlMapGeneratorConfiguration;
-import org.mybatis.generator.config.TableConfiguration;
+import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.rules.ConditionalModelRules;
 import org.mybatis.generator.internal.rules.FlatModelRules;
 import org.mybatis.generator.internal.rules.HierarchicalModelRules;
 import org.mybatis.generator.internal.rules.Rules;
 
+import java.util.*;
+
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+
 /**
  * Base class for all code generator implementations. This class provides many
  * of the housekeeping methods needed to implement a code generator, with only
  * the actual code generation methods left unimplemented.
- * 
+ *
  * @author Jeff Butler
- * 
  */
 public abstract class IntrospectedTable {
 
     public enum TargetRuntime {
-        IBATIS2, 
+        IBATIS2,
         MYBATIS3
     }
 
@@ -66,9 +52,13 @@ public abstract class IntrospectedTable {
         ATTR_IBATIS2_SQL_MAP_NAMESPACE,
         ATTR_MYBATIS3_XML_MAPPER_PACKAGE,
         ATTR_MYBATIS3_XML_MAPPER_FILE_NAME,
-        /** also used as XML Mapper namespace if a Java mapper is generated. */
+        /**
+         * also used as XML Mapper namespace if a Java mapper is generated.
+         */
         ATTR_MYBATIS3_JAVA_MAPPER_TYPE,
-        /** used as XML Mapper namespace if no client is generated. */
+        /**
+         * used as XML Mapper namespace if no client is generated.
+         */
         ATTR_MYBATIS3_FALLBACK_SQL_MAP_NAMESPACE,
         ATTR_FULLY_QUALIFIED_TABLE_NAME_AT_RUNTIME,
         ATTR_ALIASED_FULLY_QUALIFIED_TABLE_NAME_AT_RUNTIME,
@@ -93,7 +83,17 @@ public abstract class IntrospectedTable {
         ATTR_BASE_COLUMN_LIST_ID,
         ATTR_BLOB_COLUMN_LIST_ID,
         ATTR_MYBATIS3_UPDATE_BY_EXAMPLE_WHERE_CLAUSE_ID,
-        ATTR_MYBATIS3_SQL_PROVIDER_TYPE
+        ATTR_MYBATIS3_SQL_PROVIDER_TYPE,
+        // selectPaginationByExample
+        ATTR_SELECT_PAGINATION_BY_EXAMPLE_STATEMENT_ID,
+        // insertOrUpdateBySelective
+        ATTR_INSERT_OR_UPDATE_BY_SELECTIVE_STATEMENT_ID,
+        // batchInsert
+        ATTR_BATCH_INSERT_STATEMENT_ID,
+        // batchUpdate
+        ATTR_BATCH_UPDATE_STATEMENT_ID,
+        // batchUpdateBySelective
+        ATTR_BATCH_UPDATE_BY_SELECTIVE_STATEMENT_ID;
     }
 
     protected TableConfiguration tableConfiguration;
@@ -118,7 +118,9 @@ public abstract class IntrospectedTable {
      */
     protected Map<String, Object> attributes;
 
-    /** Internal attributes are used to store commonly accessed items by all code generators. */
+    /**
+     * Internal attributes are used to store commonly accessed items by all code generators.
+     */
     protected Map<IntrospectedTable.InternalAttribute, String> internalAttributes;
 
     /**
@@ -147,6 +149,26 @@ public abstract class IntrospectedTable {
 
     public String getSelectByExampleQueryId() {
         return tableConfiguration.getSelectByExampleQueryId();
+    }
+
+    public String getSelectPaginationByExampleQueryId() {
+        return tableConfiguration.getSelectPaginationByExampleQueryId();
+    }
+
+    public String getInsertOrUpdateBySelectiveQueryId() {
+        return tableConfiguration.getInsertOrUpdateBySelectiveQueryId();
+    }
+
+    public String getBatchInsertQueryId() {
+        return tableConfiguration.getBatchInsertQueryId();
+    }
+
+    public String getBatchUpdateQueryId() {
+        return tableConfiguration.getBatchUpdateQueryId();
+    }
+
+    public String getBatchUpdateBySelectiveQueryId() {
+        return tableConfiguration.getBatchUpdateBySelectiveQueryId();
     }
 
     public String getSelectByPrimaryKeyQueryId() {
@@ -213,7 +235,7 @@ public abstract class IntrospectedTable {
     /**
      * Returns true if any of the columns in the table are JDBC Dates (as
      * opposed to timestamps).
-     * 
+     *
      * @return true if the table contains DATE columns
      */
     public boolean hasJDBCDateColumns() {
@@ -241,7 +263,7 @@ public abstract class IntrospectedTable {
     /**
      * Returns true if any of the columns in the table are JDBC Times (as
      * opposed to timestamps).
-     * 
+     *
      * @return true if the table contains TIME columns
      */
     public boolean hasJDBCTimeColumns() {
@@ -270,7 +292,7 @@ public abstract class IntrospectedTable {
      * Returns the columns in the primary key. If the generatePrimaryKeyClass()
      * method returns false, then these columns will be iterated as the
      * parameters of the selectByPrimaryKay and deleteByPrimaryKey methods
-     * 
+     *
      * @return a List of ColumnDefinition objects for columns in the primary key
      */
     public List<IntrospectedColumn> getPrimaryKeyColumns() {
@@ -353,7 +375,7 @@ public abstract class IntrospectedTable {
      * Gets the base record type.
      *
      * @return the type for the record (the class that holds non-primary key and non-BLOB fields). Note that the value
-     *         will be calculated regardless of whether the table has these columns or not.
+     * will be calculated regardless of whether the table has these columns or not.
      */
     public String getBaseRecordType() {
         return internalAttributes.get(InternalAttribute.ATTR_BASE_RECORD_TYPE);
@@ -372,7 +394,7 @@ public abstract class IntrospectedTable {
      * Gets the record with blo bs type.
      *
      * @return the type for the record with BLOBs class. Note that the value will be calculated regardless of whether
-     *         the table has BLOB columns or not.
+     * the table has BLOB columns or not.
      */
     public String getRecordWithBLOBsType() {
         return internalAttributes
@@ -383,7 +405,7 @@ public abstract class IntrospectedTable {
      * Calculates an SQL Map file name for the table. Typically the name is
      * "XXXX_SqlMap.xml" where XXXX is the fully qualified table name (delimited
      * with underscores).
-     * 
+     *
      * @return the name of the SqlMap file
      */
     public String getIbatis2SqlMapFileName() {
@@ -412,7 +434,7 @@ public abstract class IntrospectedTable {
 
     /**
      * Calculates the package for the current table.
-     * 
+     *
      * @return the package for the SqlMap for the current table
      */
     public String getIbatis2SqlMapPackage() {
@@ -533,6 +555,13 @@ public abstract class IntrospectedTable {
         setInsertSelectiveStatementId("insertSelective"); //$NON-NLS-1$
         setSelectAllStatementId("selectAll"); //$NON-NLS-1$
         setSelectByExampleStatementId("selectByExample"); //$NON-NLS-1$
+        // 增加分页
+        setSelectPaginationByExampleStatementId("selectPaginationByExample");
+        setInsertOrUpdateBySelectiveStatementId("insertOrUpdateBySelective");
+        setBatchInertStatementId("batchInsert");
+        setBatchUpdateStatementId("batchUpdate");
+        setBatchUpdateBySelectiveStatementId("batchUpdateBySelective");
+
         setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs"); //$NON-NLS-1$
         setSelectByPrimaryKeyStatementId("selectByPrimaryKey"); //$NON-NLS-1$
         setUpdateByExampleStatementId("updateByExample"); //$NON-NLS-1$
@@ -633,6 +662,26 @@ public abstract class IntrospectedTable {
     public void setSelectByExampleStatementId(String s) {
         internalAttributes.put(
                 InternalAttribute.ATTR_SELECT_BY_EXAMPLE_STATEMENT_ID, s);
+    }
+
+    public void setSelectPaginationByExampleStatementId(String s) {
+        internalAttributes.put(InternalAttribute.ATTR_SELECT_PAGINATION_BY_EXAMPLE_STATEMENT_ID, s);
+    }
+
+    public void setInsertOrUpdateBySelectiveStatementId(String s) {
+        internalAttributes.put(InternalAttribute.ATTR_INSERT_OR_UPDATE_BY_SELECTIVE_STATEMENT_ID, s);
+    }
+
+    public void setBatchInertStatementId(String s) {
+        internalAttributes.put(InternalAttribute.ATTR_BATCH_INSERT_STATEMENT_ID, s);
+    }
+
+    public void setBatchUpdateStatementId(String s) {
+        internalAttributes.put(InternalAttribute.ATTR_BATCH_UPDATE_STATEMENT_ID, s);
+    }
+
+    public void setBatchUpdateBySelectiveStatementId(String s) {
+        internalAttributes.put(InternalAttribute.ATTR_BATCH_UPDATE_BY_SELECTIVE_STATEMENT_ID, s);
     }
 
     public void setInsertSelectiveStatementId(String s) {
@@ -737,6 +786,31 @@ public abstract class IntrospectedTable {
     public String getSelectByExampleStatementId() {
         return internalAttributes
                 .get(InternalAttribute.ATTR_SELECT_BY_EXAMPLE_STATEMENT_ID);
+    }
+
+    public String getSelectPaginationByExampleStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_SELECT_PAGINATION_BY_EXAMPLE_STATEMENT_ID);
+    }
+
+    public String getInsertOrUpdateBySelectiveStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_INSERT_OR_UPDATE_BY_SELECTIVE_STATEMENT_ID);
+    }
+
+    public String getBatchInsertStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_BATCH_INSERT_STATEMENT_ID);
+    }
+
+    public String getBatchUpdateStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_BATCH_UPDATE_STATEMENT_ID);
+    }
+
+    public String getBatchUpdateBySelectiveStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_BATCH_UPDATE_BY_SELECTIVE_STATEMENT_ID);
     }
 
     public String getInsertSelectiveStatementId() {
@@ -890,7 +964,7 @@ public abstract class IntrospectedTable {
         StringBuilder sb = new StringBuilder();
         SqlMapGeneratorConfiguration config = context
                 .getSqlMapGeneratorConfiguration();
-        
+
         // config can be null if the Java client does not require XML
         if (config != null) {
             sb.append(config.getTargetPackage());
@@ -969,23 +1043,21 @@ public abstract class IntrospectedTable {
 
     /**
      * This method can be used to initialize the generators before they will be called.
-     * 
+     * <p>
      * <p>This method is called after all the setX methods, but before getNumberOfSubtasks(), getGeneratedJavaFiles, and
      * getGeneratedXmlFiles.
      *
-     * @param warnings
-     *            the warnings
-     * @param progressCallback
-     *            the progress callback
+     * @param warnings         the warnings
+     * @param progressCallback the progress callback
      */
     public abstract void calculateGenerators(List<String> warnings,
-            ProgressCallback progressCallback);
+                                             ProgressCallback progressCallback);
 
     /**
      * This method should return a list of generated Java files related to this
      * table. This list could include various types of model classes, as well as
      * DAO classes.
-     * 
+     *
      * @return the list of generated Java files for this table
      */
     public abstract List<GeneratedJavaFile> getGeneratedJavaFiles();
@@ -994,7 +1066,7 @@ public abstract class IntrospectedTable {
      * This method should return a list of generated XML files related to this
      * table. Most implementations will only return one file - the generated
      * SqlMap file.
-     * 
+     *
      * @return the list of generated XML files for this table
      */
     public abstract List<GeneratedXmlFile> getGeneratedXmlFiles();
@@ -1002,7 +1074,7 @@ public abstract class IntrospectedTable {
     /**
      * Denotes whether generated code is targeted for Java version 5.0 or
      * higher.
-     * 
+     *
      * @return true if the generated code makes use of Java5 features
      */
     public abstract boolean isJava5Targeted();
@@ -1010,7 +1082,7 @@ public abstract class IntrospectedTable {
     /**
      * This method should return the number of progress messages that will be
      * send during the generation phase.
-     * 
+     *
      * @return the number of progress messages
      */
     public abstract int getGenerationSteps();
@@ -1018,8 +1090,7 @@ public abstract class IntrospectedTable {
     /**
      * This method exists to give plugins the opportunity to replace the calculated rules if necessary.
      *
-     * @param rules
-     *            the new rules
+     * @param rules the new rules
      */
     public void setRules(Rules rules) {
         this.rules = rules;
@@ -1140,11 +1211,11 @@ public abstract class IntrospectedTable {
                 InternalAttribute.ATTR_MYBATIS3_SQL_PROVIDER_TYPE,
                 mybatis3SqlProviderType);
     }
-    
+
     public TargetRuntime getTargetRuntime() {
         return targetRuntime;
     }
-    
+
     public boolean isImmutable() {
         Properties properties;
 

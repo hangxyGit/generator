@@ -312,6 +312,81 @@ public final class PluginAggregator implements Plugin {
     }
 
     @Override
+    public boolean sqlMapSelectPaginationByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.sqlMapSelectPaginationByExampleWithoutBLOBsElementGenerated(
+                    element, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean sqlMapInsertOrUpdateBySelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.sqlMapInsertOrUpdateBySelectiveElementGenerated(
+                    element, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean sqlMapBatchInsertElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.sqlMapBatchInsertElementGenerated(
+                    element, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean sqlBatchUpdateElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.sqlBatchUpdateElementGenerated(
+                    element, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean sqlMapBatchUpdateBySelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.sqlMapBatchUpdateBySelectiveElementGenerated(
+                    element, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
     public boolean sqlMapSelectByExampleWithBLOBsElementGenerated(
             XmlElement element, IntrospectedTable introspectedTable) {
         boolean rc = true;
@@ -675,6 +750,81 @@ public final class PluginAggregator implements Plugin {
             }
         }
 
+        return rc;
+    }
+
+    @Override
+    public boolean clientSelectPaginationByExampleWithoutBLOBsMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.clientSelectPaginationByExampleWithoutBLOBsMethodGenerated(method,
+                    interfaze, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+
+    @Override
+    public boolean clientInsertOrUpdateBySelectiveMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.clientInsertOrUpdateBySelectiveMethodGenerated(method,
+                    interfaze, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean clientBatchInsertMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.clientBatchInsertMethodGenerated(method,
+                    interfaze, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean clientBatchUpdateMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.clientBatchUpdateMethodGenerated(method,
+                    interfaze, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
+
+        return rc;
+    }
+
+    @Override
+    public boolean clientBatchUpdateBySelectiveMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        boolean rc = true;
+
+        for (Plugin plugin : plugins) {
+            if (!plugin.clientBatchUpdateBySelectiveMethodGenerated(method,
+                    interfaze, introspectedTable)) {
+                rc = false;
+                break;
+            }
+        }
         return rc;
     }
 

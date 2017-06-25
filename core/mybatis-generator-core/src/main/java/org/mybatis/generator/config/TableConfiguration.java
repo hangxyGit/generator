@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.config;
 
@@ -44,6 +44,16 @@ public class TableConfiguration extends PropertyHolder {
 
     private boolean selectByExampleStatementEnabled;
 
+    private boolean selectPaginationByExampleStatementEnabled;
+
+    private boolean insertOrUpdateBySelectiveEnabled;
+
+    private boolean batchInsertEnabled;
+
+    private boolean batchUpdateEnabled;
+
+    private boolean batchUpdateBySelectiveEnabled;
+
     private boolean updateByPrimaryKeyStatementEnabled;
 
     private boolean deleteByPrimaryKeyStatementEnabled;
@@ -63,6 +73,16 @@ public class TableConfiguration extends PropertyHolder {
     private String selectByPrimaryKeyQueryId;
 
     private String selectByExampleQueryId;
+
+    private String selectPaginationByExampleQueryId;
+
+    private String insertOrUpdateBySelectiveQueryId;
+
+    private String batchInsertQueryId;
+
+    private String batchUpdateQueryId;
+
+    private String batchUpdateBySelectiveQueryId;
 
     private String catalog;
 
@@ -102,6 +122,11 @@ public class TableConfiguration extends PropertyHolder {
         insertStatementEnabled = true;
         selectByPrimaryKeyStatementEnabled = true;
         selectByExampleStatementEnabled = true;
+        selectPaginationByExampleStatementEnabled = false;
+        insertOrUpdateBySelectiveEnabled = false;
+        batchInsertEnabled = false;
+        batchUpdateEnabled = false;
+        batchUpdateBySelectiveEnabled = false;
         updateByPrimaryKeyStatementEnabled = true;
         deleteByPrimaryKeyStatementEnabled = true;
         deleteByExampleStatementEnabled = true;
@@ -210,11 +235,50 @@ public class TableConfiguration extends PropertyHolder {
         this.selectByExampleStatementEnabled = selectByExampleStatementEnabled;
     }
 
+    public boolean isSelectPaginationByExampleStatementEnabled() {
+        return selectPaginationByExampleStatementEnabled;
+    }
+
+    public void setSelectPaginationByExampleStatementEnabled(boolean selectPaginationByExampleStatementEnabled) {
+        this.selectPaginationByExampleStatementEnabled = selectPaginationByExampleStatementEnabled;
+    }
+
+    public boolean isInsertOrUpdateBySelectiveEnabled() {
+        return insertOrUpdateBySelectiveEnabled;
+    }
+
+    public void setInsertOrUpdateBySelectiveEnabled(boolean insertOrUpdateBySelectiveEnabled) {
+        this.insertOrUpdateBySelectiveEnabled = insertOrUpdateBySelectiveEnabled;
+    }
+
+    public boolean isBatchInsertEnabled() {
+        return batchInsertEnabled;
+    }
+
+    public boolean isBatchUpdateBySelectiveEnabled() {
+        return batchUpdateBySelectiveEnabled;
+    }
+
+    public void setBatchInsertEnabled(boolean batchInsertEnabled) {
+        this.batchInsertEnabled = batchInsertEnabled;
+    }
+
+    public boolean isBatchUpdateEnabled() {
+        return batchUpdateEnabled;
+    }
+
+    public void setBatchUpdateEnabled(boolean batchUpdateEnabled) {
+        this.batchUpdateEnabled = batchUpdateEnabled;
+    }
+
+    public void setBatchUpdateBySelectiveEnabled(boolean batchUpdateBySelectiveEnabled) {
+        this.batchUpdateBySelectiveEnabled = batchUpdateBySelectiveEnabled;
+    }
+
     /**
      * May return null if the column has not been overridden.
      *
-     * @param columnName
-     *            the column name
+     * @param columnName the column name
      * @return the column override (if any) related to this column
      */
     public ColumnOverride getColumnOverride(String columnName) {
@@ -241,8 +305,48 @@ public class TableConfiguration extends PropertyHolder {
         return selectByExampleQueryId;
     }
 
+    public String getSelectPaginationByExampleQueryId() {
+        return selectPaginationByExampleQueryId;
+    }
+
+    public String getInsertOrUpdateBySelectiveQueryId() {
+        return insertOrUpdateBySelectiveQueryId;
+    }
+
+    public String getBatchInsertQueryId() {
+        return batchInsertQueryId;
+    }
+
+    public String getBatchUpdateQueryId() {
+        return batchUpdateQueryId;
+    }
+
+    public String getBatchUpdateBySelectiveQueryId() {
+        return batchUpdateBySelectiveQueryId;
+    }
+
     public void setSelectByExampleQueryId(String selectByExampleQueryId) {
         this.selectByExampleQueryId = selectByExampleQueryId;
+    }
+
+    public void setSelectPaginationByExampleQueryId(String selectPaginationByExampleQueryId) {
+        this.selectPaginationByExampleQueryId = selectPaginationByExampleQueryId;
+    }
+
+    public void setInsertOrUpdateBySelectiveQueryId(String insertOrUpdateBySelectiveQueryId) {
+        this.insertOrUpdateBySelectiveQueryId = insertOrUpdateBySelectiveQueryId;
+    }
+
+    public void setBatchInsertQueryId(String batchInsertQueryId) {
+        this.batchInsertQueryId = batchInsertQueryId;
+    }
+
+    public void setBatchUpdateQueryId(String batchUpdateQueryId) {
+        this.batchUpdateQueryId = batchUpdateQueryId;
+    }
+
+    public void setBatchUpdateBySelectiveQueryId(String batchUpdateBySelectiveQueryId) {
+        this.batchUpdateBySelectiveQueryId = batchUpdateBySelectiveQueryId;
     }
 
     public String getSelectByPrimaryKeyQueryId() {
@@ -264,6 +368,11 @@ public class TableConfiguration extends PropertyHolder {
 
     public boolean areAnyStatementsEnabled() {
         return selectByExampleStatementEnabled
+                || selectPaginationByExampleStatementEnabled
+                || insertOrUpdateBySelectiveEnabled
+                || batchInsertEnabled
+                || batchUpdateEnabled
+                || batchUpdateBySelectiveEnabled
                 || selectByPrimaryKeyStatementEnabled || insertStatementEnabled
                 || updateByPrimaryKeyStatementEnabled
                 || deleteByExampleStatementEnabled
@@ -324,9 +433,9 @@ public class TableConfiguration extends PropertyHolder {
      * Returns a List of Strings. The values are the columns
      * that were specified to be ignored in the table, but do not exist in the
      * table.
-     * 
+     *
      * @return a List of Strings - the columns that were improperly configured
-     *         as ignored columns
+     * as ignored columns
      */
     public List<String> getIgnoredColumnsInError() {
         List<String> answer = new ArrayList<String>();
@@ -391,6 +500,31 @@ public class TableConfiguration extends PropertyHolder {
         if (!selectByExampleStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
                     "enableSelectByExample", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        if (!selectPaginationByExampleStatementEnabled) {
+            xmlElement.addAttribute(new Attribute(
+                    "enableSelectPaginationByExample", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        if (!insertOrUpdateBySelectiveEnabled) {
+            xmlElement.addAttribute(new Attribute(
+                    "enableInsertOrUpdateBySelective", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        if (!batchInsertEnabled) {
+            xmlElement.addAttribute(new Attribute(
+                    "enableBatchInsert", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        if (!batchUpdateEnabled) {
+            xmlElement.addAttribute(new Attribute(
+                    "enableBatchUpdate", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        if (!batchUpdateBySelectiveEnabled) {
+            xmlElement.addAttribute(new Attribute(
+                    "enableBatchUpdateBySelective", "false")); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         if (!updateByPrimaryKeyStatementEnabled) {
@@ -533,7 +667,12 @@ public class TableConfiguration extends PropertyHolder {
         // when using column indexes, either both or neither query ids
         // should be set
         if (isTrue(getProperty(PropertyRegistry.TABLE_USE_COLUMN_INDEXES))
-                && selectByExampleStatementEnabled
+                && selectPaginationByExampleStatementEnabled
+                && insertOrUpdateBySelectiveEnabled
+                && batchInsertEnabled
+                && batchUpdateEnabled
+                && batchUpdateBySelectiveEnabled
+
                 && selectByPrimaryKeyStatementEnabled) {
             boolean queryId1Set = stringHasValue(selectByExampleQueryId);
             boolean queryId2Set = stringHasValue(selectByPrimaryKeyQueryId);

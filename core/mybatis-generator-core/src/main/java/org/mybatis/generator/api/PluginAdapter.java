@@ -30,12 +30,12 @@ import org.mybatis.generator.config.Context;
  * This class includes no-operation methods for almost every method in the
  * Plugin interface. Clients may extend this class to implement some or all of
  * the methods in a plugin.
- * 
+ *
  * <p>This adapter does not implement the <tt>validate</tt> method - all plugins
  * must perform validation.
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public abstract class PluginAdapter implements Plugin {
     protected Context context;
@@ -158,9 +158,36 @@ public abstract class PluginAdapter implements Plugin {
         return true;
     }
 
+
     @Override
     public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(Method method,
             TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean clientSelectPaginationByExampleWithoutBLOBsMethodGenerated(Method method,
+             Interface interfaze, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean clientInsertOrUpdateBySelectiveMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean clientBatchInsertMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean clientBatchUpdateMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean clientBatchUpdateBySelectiveMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -355,6 +382,32 @@ public abstract class PluginAdapter implements Plugin {
     @Override
     public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(
             XmlElement element, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean sqlMapSelectPaginationByExampleWithoutBLOBsElementGenerated(
+            XmlElement element, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean sqlMapInsertOrUpdateBySelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean sqlMapBatchInsertElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean sqlBatchUpdateElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        return true;
+    }
+
+    @Override
+    public boolean sqlMapBatchUpdateBySelectiveElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
         return true;
     }
 

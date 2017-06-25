@@ -135,6 +135,31 @@ public class RulesDelegate implements Rules {
     }
 
     @Override
+    public boolean generateSelectPaginationByExampleWithoutBLOBs() {
+        return rules.generateSelectPaginationByExampleWithoutBLOBs();
+    }
+
+    @Override
+    public boolean generateInsertOrUpdateBySelective() {
+        return rules.generateInsertOrUpdateBySelective();
+    }
+
+    @Override
+    public boolean generateBatchInsert() {
+        return rules.generateBatchInsert();
+    }
+
+    @Override
+    public boolean generateBatchUpdate() {
+        return rules.generateBatchUpdate();
+    }
+
+    @Override
+    public boolean generateBatchUpdateBySelective() {
+        return rules.generateBatchUpdateBySelective();
+    }
+
+    @Override
     public boolean generateSelectByPrimaryKey() {
         return rules.generateSelectByPrimaryKey();
     }

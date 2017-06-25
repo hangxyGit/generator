@@ -184,6 +184,46 @@ public interface Rules {
     boolean generateSelectByExampleWithoutBLOBs();
 
     /**
+     * Implements the rule for generating the select pagination by example without BLOBs
+     * SQL Map element and DAO method. If the selectPaginationByExample statement is
+     * allowed, then generate the element and method.
+     * @return
+     */
+    boolean generateSelectPaginationByExampleWithoutBLOBs();
+
+    /**
+     * Implements the rule for generating the insert or update by selective
+     * SQL Map element and DAO method. If the insertOrUpdateBySelective statement is
+     * allowed, then generate the element and method.
+     * @return
+     */
+    boolean generateInsertOrUpdateBySelective();
+
+    /**
+     * Implements the rule for generating the batch insert
+     * SQL Map element and DAO method. If the batchInsert statement is
+     * allowed, then generate the element and method.
+     * @return
+     */
+    boolean generateBatchInsert();
+
+    /**
+     * Implements the rule for generating the batch update
+     * SQL Map element and DAO method. If the batchUpdate statement is
+     * allowed, then generate the element and method.
+     * @return
+     */
+    boolean generateBatchUpdate();
+
+    /**
+     * Implements the rule for generating the batch update by selective
+     * SQL Map element and DAO method. If the batchUpdateBySelective statement is
+     * allowed, then generate the element and method.
+     * @return
+     */
+    boolean generateBatchUpdateBySelective();
+
+    /**
      * Implements the rule for generating the select by example with BLOBs SQL
      * Map element and DAO method. If the table has BLOB fields and the
      * selectByExample statement is allowed, then generate the element and
