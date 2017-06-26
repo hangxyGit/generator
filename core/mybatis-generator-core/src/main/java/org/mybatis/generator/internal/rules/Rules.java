@@ -208,20 +208,20 @@ public interface Rules {
     boolean generateBatchInsert();
 
     /**
-     * Implements the rule for generating the batch update
-     * SQL Map element and DAO method. If the batchUpdate statement is
+     * Implements the rule for generating the batch update by primary key
+     * SQL Map element and DAO method. If the batchUpdateByPrimaryKey statement is
      * allowed, then generate the element and method.
      * @return
      */
-    boolean generateBatchUpdate();
+    boolean generateBatchUpdateByPrimaryKey();
 
     /**
      * Implements the rule for generating the batch update by selective
-     * SQL Map element and DAO method. If the batchUpdateBySelective statement is
+     * SQL Map element and DAO method. If the batchUpdateByPrimaryKeySelective statement is
      * allowed, then generate the element and method.
      * @return
      */
-    boolean generateBatchUpdateBySelective();
+    boolean generateBatchUpdateByPrimaryKeySelective();
 
     /**
      * Implements the rule for generating the select by example with BLOBs SQL

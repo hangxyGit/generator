@@ -40,7 +40,7 @@ public class BatchInsertMethodGenerator extends AbstractJavaMapperMethodGenerato
 
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.setName(introspectedTable.getInsertStatementId());
+        method.setName(introspectedTable.getBatchInsertStatementId());
 
         FullyQualifiedJavaType parameterType;
         if (isSimple) {
@@ -51,16 +51,18 @@ public class BatchInsertMethodGenerator extends AbstractJavaMapperMethodGenerato
                     .calculateAllFieldsClass();
         }
 
+        FullyQualifiedJavaType listParameterType = new FullyQualifiedJavaType("java.util.List<"+parameterType.getShortName()+">");
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         importedTypes.add(parameterType);
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(listParameterType, "list")); //$NON-NLS-1$
+        method.setReturnType(null);
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
         addMapperAnnotations(method);
 
-        if (context.getPlugins().clientInsertMethodGenerated(method, interfaze,
+        if (context.getPlugins().clientBatchInsertMethodGenerated(method, interfaze,
                 introspectedTable)) {
             addExtraImports(interfaze);
             interfaze.addImportedTypes(importedTypes);

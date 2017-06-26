@@ -165,8 +165,8 @@
   enableSelectPaginationByExample CDATA #IMPLIED
   enableInsertOrUpdateBySelective CDATA #IMPLIED
   enableBatchInsert CDATA #IMPLIED
-  enableBatchUpdate CDATA #IMPLIED
-  enableBatchUpdateBySelective CDATA #IMPLIED
+  enableBatchUpdateByPrimaryKey CDATA #IMPLIED
+  enableBatchUpdateByPrimaryKeySelective CDATA #IMPLIED
 
   enableUpdateByPrimaryKey CDATA #IMPLIED
   enableDeleteByPrimaryKey CDATA #IMPLIED

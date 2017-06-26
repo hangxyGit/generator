@@ -377,21 +377,21 @@ public abstract class BaseRules implements Rules {
     }
 
     @Override
-    public boolean generateBatchUpdate() {
+    public boolean generateBatchUpdateByPrimaryKey() {
 
         if (isModelOnly) {
             return false;
         }
-        return tableConfiguration.isBatchUpdateEnabled();
+        return tableConfiguration.isBatchUpdateByPrimaryKeyEnabled();
     }
 
     @Override
-    public boolean generateBatchUpdateBySelective() {
+    public boolean generateBatchUpdateByPrimaryKeySelective() {
 
         if (isModelOnly) {
             return false;
         }
-        return tableConfiguration.isBatchUpdateBySelectiveEnabled();
+        return tableConfiguration.isBatchUpdateByPrimaryKeySelectiveEnabled();
     }
 
     /**

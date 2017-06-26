@@ -50,9 +50,9 @@ public class TableConfiguration extends PropertyHolder {
 
     private boolean batchInsertEnabled;
 
-    private boolean batchUpdateEnabled;
+    private boolean batchUpdateByPrimaryKeyEnabled;
 
-    private boolean batchUpdateBySelectiveEnabled;
+    private boolean batchUpdateByPrimaryKeySelectiveEnabled;
 
     private boolean updateByPrimaryKeyStatementEnabled;
 
@@ -80,9 +80,9 @@ public class TableConfiguration extends PropertyHolder {
 
     private String batchInsertQueryId;
 
-    private String batchUpdateQueryId;
+    private String batchUpdateByPrimaryKeyQueryId;
 
-    private String batchUpdateBySelectiveQueryId;
+    private String batchUpdateByPrimaryKeySelectiveQueryId;
 
     private String catalog;
 
@@ -125,8 +125,8 @@ public class TableConfiguration extends PropertyHolder {
         selectPaginationByExampleStatementEnabled = false;
         insertOrUpdateBySelectiveEnabled = false;
         batchInsertEnabled = false;
-        batchUpdateEnabled = false;
-        batchUpdateBySelectiveEnabled = false;
+        batchUpdateByPrimaryKeyEnabled = false;
+        batchUpdateByPrimaryKeySelectiveEnabled = false;
         updateByPrimaryKeyStatementEnabled = true;
         deleteByPrimaryKeyStatementEnabled = true;
         deleteByExampleStatementEnabled = true;
@@ -255,24 +255,24 @@ public class TableConfiguration extends PropertyHolder {
         return batchInsertEnabled;
     }
 
-    public boolean isBatchUpdateBySelectiveEnabled() {
-        return batchUpdateBySelectiveEnabled;
+    public boolean isBatchUpdateByPrimaryKeySelectiveEnabled() {
+        return batchUpdateByPrimaryKeySelectiveEnabled;
     }
 
     public void setBatchInsertEnabled(boolean batchInsertEnabled) {
         this.batchInsertEnabled = batchInsertEnabled;
     }
 
-    public boolean isBatchUpdateEnabled() {
-        return batchUpdateEnabled;
+    public boolean isBatchUpdateByPrimaryKeyEnabled() {
+        return batchUpdateByPrimaryKeyEnabled;
     }
 
-    public void setBatchUpdateEnabled(boolean batchUpdateEnabled) {
-        this.batchUpdateEnabled = batchUpdateEnabled;
+    public void setBatchUpdateByPrimaryKeyEnabled(boolean batchUpdateByPrimaryKeyEnabled) {
+        this.batchUpdateByPrimaryKeyEnabled = batchUpdateByPrimaryKeyEnabled;
     }
 
-    public void setBatchUpdateBySelectiveEnabled(boolean batchUpdateBySelectiveEnabled) {
-        this.batchUpdateBySelectiveEnabled = batchUpdateBySelectiveEnabled;
+    public void setBatchUpdateByPrimaryKeySelectiveEnabled(boolean batchUpdateByPrimaryKeySelectiveEnabled) {
+        this.batchUpdateByPrimaryKeySelectiveEnabled = batchUpdateByPrimaryKeySelectiveEnabled;
     }
 
     /**
@@ -317,12 +317,12 @@ public class TableConfiguration extends PropertyHolder {
         return batchInsertQueryId;
     }
 
-    public String getBatchUpdateQueryId() {
-        return batchUpdateQueryId;
+    public String getBatchUpdateByPrimaryKeyQueryId() {
+        return batchUpdateByPrimaryKeyQueryId;
     }
 
-    public String getBatchUpdateBySelectiveQueryId() {
-        return batchUpdateBySelectiveQueryId;
+    public String getBatchUpdateByPrimaryKeySelectiveQueryId() {
+        return batchUpdateByPrimaryKeySelectiveQueryId;
     }
 
     public void setSelectByExampleQueryId(String selectByExampleQueryId) {
@@ -341,12 +341,12 @@ public class TableConfiguration extends PropertyHolder {
         this.batchInsertQueryId = batchInsertQueryId;
     }
 
-    public void setBatchUpdateQueryId(String batchUpdateQueryId) {
-        this.batchUpdateQueryId = batchUpdateQueryId;
+    public void setBatchUpdateByPrimaryKeyQueryId(String batchUpdateByPrimaryKeyQueryId) {
+        this.batchUpdateByPrimaryKeyQueryId = batchUpdateByPrimaryKeyQueryId;
     }
 
-    public void setBatchUpdateBySelectiveQueryId(String batchUpdateBySelectiveQueryId) {
-        this.batchUpdateBySelectiveQueryId = batchUpdateBySelectiveQueryId;
+    public void setBatchUpdateByPrimaryKeySelectiveQueryId(String batchUpdateByPrimaryKeySelectiveQueryId) {
+        this.batchUpdateByPrimaryKeySelectiveQueryId = batchUpdateByPrimaryKeySelectiveQueryId;
     }
 
     public String getSelectByPrimaryKeyQueryId() {
@@ -371,8 +371,8 @@ public class TableConfiguration extends PropertyHolder {
                 || selectPaginationByExampleStatementEnabled
                 || insertOrUpdateBySelectiveEnabled
                 || batchInsertEnabled
-                || batchUpdateEnabled
-                || batchUpdateBySelectiveEnabled
+                || batchUpdateByPrimaryKeyEnabled
+                || batchUpdateByPrimaryKeySelectiveEnabled
                 || selectByPrimaryKeyStatementEnabled || insertStatementEnabled
                 || updateByPrimaryKeyStatementEnabled
                 || deleteByExampleStatementEnabled
@@ -517,14 +517,14 @@ public class TableConfiguration extends PropertyHolder {
                     "enableBatchInsert", "false")); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        if (!batchUpdateEnabled) {
+        if (!batchUpdateByPrimaryKeyEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableBatchUpdate", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableBatchUpdateByPrimaryKey", "false")); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        if (!batchUpdateBySelectiveEnabled) {
+        if (!batchUpdateByPrimaryKeySelectiveEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableBatchUpdateBySelective", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableBatchUpdateByPrimaryKeySelective", "false")); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         if (!updateByPrimaryKeyStatementEnabled) {
@@ -670,8 +670,8 @@ public class TableConfiguration extends PropertyHolder {
                 && selectPaginationByExampleStatementEnabled
                 && insertOrUpdateBySelectiveEnabled
                 && batchInsertEnabled
-                && batchUpdateEnabled
-                && batchUpdateBySelectiveEnabled
+                && batchUpdateByPrimaryKeyEnabled
+                && batchUpdateByPrimaryKeySelectiveEnabled
 
                 && selectByPrimaryKeyStatementEnabled) {
             boolean queryId1Set = stringHasValue(selectByExampleQueryId);

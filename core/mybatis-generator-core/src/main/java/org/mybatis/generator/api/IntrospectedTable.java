@@ -91,9 +91,9 @@ public abstract class IntrospectedTable {
         // batchInsert
         ATTR_BATCH_INSERT_STATEMENT_ID,
         // batchUpdate
-        ATTR_BATCH_UPDATE_STATEMENT_ID,
-        // batchUpdateBySelective
-        ATTR_BATCH_UPDATE_BY_SELECTIVE_STATEMENT_ID;
+        ATTR_BATCH_UPDATE_BY_PRIMARY_KEY_STATEMENT_ID,
+        // batchUpdateByPrimaryKeySelective
+        ATTR_BATCH_UPDATE_BY_PRIMARY_KEY_SELECTIVE_STATEMENT_ID;
     }
 
     protected TableConfiguration tableConfiguration;
@@ -163,12 +163,12 @@ public abstract class IntrospectedTable {
         return tableConfiguration.getBatchInsertQueryId();
     }
 
-    public String getBatchUpdateQueryId() {
-        return tableConfiguration.getBatchUpdateQueryId();
+    public String getBatchUpdateByPrimaryKeyQueryId() {
+        return tableConfiguration.getBatchUpdateByPrimaryKeyQueryId();
     }
 
-    public String getBatchUpdateBySelectiveQueryId() {
-        return tableConfiguration.getBatchUpdateBySelectiveQueryId();
+    public String getBatchUpdateByPrimaryKeySelectiveQueryId() {
+        return tableConfiguration.getBatchUpdateByPrimaryKeySelectiveQueryId();
     }
 
     public String getSelectByPrimaryKeyQueryId() {
@@ -559,8 +559,8 @@ public abstract class IntrospectedTable {
         setSelectPaginationByExampleStatementId("selectPaginationByExample");
         setInsertOrUpdateBySelectiveStatementId("insertOrUpdateBySelective");
         setBatchInertStatementId("batchInsert");
-        setBatchUpdateStatementId("batchUpdate");
-        setBatchUpdateBySelectiveStatementId("batchUpdateBySelective");
+        setBatchUpdateByPrimaryKeyStatementId("batchUpdateByPrimaryKey");
+        setBatchUpdateByPrimaryKeySelectiveStatementId("batchUpdateByPrimaryKeySelective");
 
         setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs"); //$NON-NLS-1$
         setSelectByPrimaryKeyStatementId("selectByPrimaryKey"); //$NON-NLS-1$
@@ -676,12 +676,12 @@ public abstract class IntrospectedTable {
         internalAttributes.put(InternalAttribute.ATTR_BATCH_INSERT_STATEMENT_ID, s);
     }
 
-    public void setBatchUpdateStatementId(String s) {
-        internalAttributes.put(InternalAttribute.ATTR_BATCH_UPDATE_STATEMENT_ID, s);
+    public void setBatchUpdateByPrimaryKeyStatementId(String s) {
+        internalAttributes.put(InternalAttribute.ATTR_BATCH_UPDATE_BY_PRIMARY_KEY_STATEMENT_ID, s);
     }
 
-    public void setBatchUpdateBySelectiveStatementId(String s) {
-        internalAttributes.put(InternalAttribute.ATTR_BATCH_UPDATE_BY_SELECTIVE_STATEMENT_ID, s);
+    public void setBatchUpdateByPrimaryKeySelectiveStatementId(String s) {
+        internalAttributes.put(InternalAttribute.ATTR_BATCH_UPDATE_BY_PRIMARY_KEY_SELECTIVE_STATEMENT_ID, s);
     }
 
     public void setInsertSelectiveStatementId(String s) {
@@ -803,14 +803,14 @@ public abstract class IntrospectedTable {
                 .get(InternalAttribute.ATTR_BATCH_INSERT_STATEMENT_ID);
     }
 
-    public String getBatchUpdateStatementId() {
+    public String getBatchUpdateByPrimaryKeyStatementId() {
         return internalAttributes
-                .get(InternalAttribute.ATTR_BATCH_UPDATE_STATEMENT_ID);
+                .get(InternalAttribute.ATTR_BATCH_UPDATE_BY_PRIMARY_KEY_STATEMENT_ID);
     }
 
-    public String getBatchUpdateBySelectiveStatementId() {
+    public String getBatchUpdateByPrimaryKeySelectiveStatementId() {
         return internalAttributes
-                .get(InternalAttribute.ATTR_BATCH_UPDATE_BY_SELECTIVE_STATEMENT_ID);
+                .get(InternalAttribute.ATTR_BATCH_UPDATE_BY_PRIMARY_KEY_SELECTIVE_STATEMENT_ID);
     }
 
     public String getInsertSelectiveStatementId() {

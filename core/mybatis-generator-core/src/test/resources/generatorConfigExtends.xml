@@ -60,8 +60,8 @@
                enableSelectPaginationByExample="true"
                enableInsertOrUpdateBySelective="true"
                enableBatchInsert="true"
-               enableBatchUpdate="true"
-               enableBatchUpdateBySelective="true">
+               enableBatchUpdateByPrimaryKey="true"
+               enableBatchUpdateByPrimaryKeySelective="true">
             <property name="useActualColumnNames" value="true"/>
             <generatedKey column="Id" sqlStatement="MySql" identity="true"/>
         </table>

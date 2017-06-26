@@ -26,9 +26,9 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import java.util.Iterator;
 
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class BatchUpdateElementGenerator extends
         AbstractXmlElementGenerator {
@@ -45,16 +45,23 @@ public class BatchUpdateElementGenerator extends
         XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getUpdateByPrimaryKeyStatementId())); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
-                introspectedTable.getBaseRecordType()));
+                "id", introspectedTable.getBatchUpdateByPrimaryKeyStatementId())); //$NON-NLS-1$
+
+
+        answer.addAttribute(new Attribute("parameterType", "java.util.List"));
 
         context.getCommentGenerator().addComment(answer);
+
+        // <foreach collection="list" item="record" separator=",">
+        XmlElement foreachElement = new XmlElement("foreach");
+        foreachElement.addAttribute(new Attribute("collection","list"));
+        foreachElement.addAttribute(new Attribute("item","record"));
+        foreachElement.addAttribute(new Attribute("separator",";"));
 
         StringBuilder sb = new StringBuilder();
         sb.append("update "); //$NON-NLS-1$
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
-        answer.addElement(new TextElement(sb.toString()));
+        foreachElement.addElement(new TextElement(sb.toString()));
 
         // set up for first column
         sb.setLength(0);
@@ -73,13 +80,13 @@ public class BatchUpdateElementGenerator extends
                     .getEscapedColumnName(introspectedColumn));
             sb.append(" = "); //$NON-NLS-1$
             sb.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
+                    .getParameterClause(introspectedColumn,"record."));
 
             if (iter.hasNext()) {
                 sb.append(',');
             }
 
-            answer.addElement(new TextElement(sb.toString()));
+            foreachElement.addElement(new TextElement(sb.toString()));
 
             // set up for the next column
             if (iter.hasNext()) {
@@ -101,14 +108,14 @@ public class BatchUpdateElementGenerator extends
 
             sb.append(MyBatis3FormattingUtilities
                     .getEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
-            sb.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
-            answer.addElement(new TextElement(sb.toString()));
+            sb.append(" = ");
+            sb.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn,"record."));
+            foreachElement.addElement(new TextElement(sb.toString()));
         }
+        answer.addElement(foreachElement);
 
         if (context.getPlugins()
-                .sqlMapUpdateByPrimaryKeyWithoutBLOBsElementGenerated(answer,
+                .sqlBatchUpdateElementGenerated(answer,
                         introspectedTable)) {
             parentElement.addElement(answer);
         }

@@ -150,13 +150,13 @@ public class RulesDelegate implements Rules {
     }
 
     @Override
-    public boolean generateBatchUpdate() {
-        return rules.generateBatchUpdate();
+    public boolean generateBatchUpdateByPrimaryKey() {
+        return rules.generateBatchUpdateByPrimaryKey();
     }
 
     @Override
-    public boolean generateBatchUpdateBySelective() {
-        return rules.generateBatchUpdateBySelective();
+    public boolean generateBatchUpdateByPrimaryKeySelective() {
+        return rules.generateBatchUpdateByPrimaryKeySelective();
     }
 
     @Override

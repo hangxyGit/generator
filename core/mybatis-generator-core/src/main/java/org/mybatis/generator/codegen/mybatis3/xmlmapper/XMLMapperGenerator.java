@@ -161,7 +161,7 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
 
     protected void addBatchUpdateElement(
             XmlElement parentElement) {
-        if (introspectedTable.getRules().generateBatchUpdate()) {
+        if (introspectedTable.getRules().generateBatchUpdateByPrimaryKey()) {
             AbstractXmlElementGenerator elementGenerator = new BatchUpdateElementGenerator(false);
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
@@ -169,7 +169,7 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
 
     protected void addBatchUpdateBySelectiveElement(
             XmlElement parentElement) {
-        if (introspectedTable.getRules().generateBatchUpdateBySelective()) {
+        if (introspectedTable.getRules().generateBatchUpdateByPrimaryKeySelective()) {
             AbstractXmlElementGenerator elementGenerator = new BatchUpdateBySelectiveElementGenerator(false);
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }

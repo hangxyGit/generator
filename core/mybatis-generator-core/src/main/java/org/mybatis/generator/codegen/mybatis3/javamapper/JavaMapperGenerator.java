@@ -181,16 +181,16 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
     }
 
     protected void addBatcUpdateMethod(Interface interfaze) {
-        if (introspectedTable.getRules().generateBatchUpdate()) {
-            AbstractJavaMapperMethodGenerator methodGenerator = new BatchUpdateMethodGenerator();
+        if (introspectedTable.getRules().generateBatchUpdateByPrimaryKey()) {
+            AbstractJavaMapperMethodGenerator methodGenerator = new BatchUpdateByPrimaryKeyMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
     }
 
 
     protected void addBatchUpdateBySelectiveMethod(Interface interfaze) {
-        if (introspectedTable.getRules().generateBatchUpdateBySelective()) {
-            AbstractJavaMapperMethodGenerator methodGenerator = new BatchUpdateBySelectiveMethodGenerator();
+        if (introspectedTable.getRules().generateBatchUpdateByPrimaryKeySelective()) {
+            AbstractJavaMapperMethodGenerator methodGenerator = new BatchUpdateByPrimaryKeySelectiveMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, interfaze);
         }
     }

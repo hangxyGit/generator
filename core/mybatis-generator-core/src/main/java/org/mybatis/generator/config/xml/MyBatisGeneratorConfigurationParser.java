@@ -304,17 +304,17 @@ public class MyBatisGeneratorConfigurationParser {
             tc.setBatchInsertEnabled(isTrue(enableBatchInsert));
         }
 
-        String enableBatchUpdate = attributes
-                .getProperty("enableBatchUpdate"); //$NON-NLS-1$
-        if (stringHasValue(enableBatchUpdate)) {
-            tc.setBatchUpdateEnabled(isTrue(enableBatchUpdate));
+        String enableBatchUpdateByPrimaryKey = attributes
+                .getProperty("enableBatchUpdateByPrimaryKey"); //$NON-NLS-1$
+        if (stringHasValue(enableBatchUpdateByPrimaryKey)) {
+            tc.setBatchUpdateByPrimaryKeyEnabled(isTrue(enableBatchUpdateByPrimaryKey));
         }
 
-        String enableBatchUpdateBySelective = attributes
-                .getProperty("enableBatchUpdateBySelective"); //$NON-NLS-1$
-        if (stringHasValue(enableBatchUpdateBySelective)) {
-            tc.setBatchUpdateBySelectiveEnabled(
-                    isTrue(enableBatchUpdateBySelective));
+        String enableBatchUpdateByPrimaryKeySelective = attributes
+                .getProperty("enableBatchUpdateByPrimaryKeySelective"); //$NON-NLS-1$
+        if (stringHasValue(enableBatchUpdateByPrimaryKeySelective)) {
+            tc.setBatchUpdateByPrimaryKeySelectiveEnabled(
+                    isTrue(enableBatchUpdateByPrimaryKeySelective));
         }
 
         String enableUpdateByPrimaryKey = attributes

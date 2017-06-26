@@ -25,10 +25,10 @@ import java.util.TreeSet;
  * @author Jeff Butler
  * 
  */
-public class BatchUpdateBySelectiveMethodGenerator extends
+public class BatchUpdateByPrimaryKeyMethodGenerator extends
         AbstractJavaMapperMethodGenerator {
 
-    public BatchUpdateBySelectiveMethodGenerator() {
+    public BatchUpdateByPrimaryKeyMethodGenerator() {
         super();
     }
 
@@ -39,11 +39,14 @@ public class BatchUpdateBySelectiveMethodGenerator extends
                 introspectedTable.getBaseRecordType());
         importedTypes.add(parameterType);
 
+        FullyQualifiedJavaType listParameterType = new FullyQualifiedJavaType("java.util.List<"+parameterType.getShortName()+">");
+
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        method.setName(introspectedTable.getUpdateByPrimaryKeyStatementId());
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.setName(introspectedTable.getBatchUpdateByPrimaryKeyStatementId());
+        method.addParameter(new Parameter(listParameterType, "list")); //$NON-NLS-1$
+        method.setReturnType(null);
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
@@ -51,7 +54,7 @@ public class BatchUpdateBySelectiveMethodGenerator extends
         addMapperAnnotations(method);
         
         if (context.getPlugins()
-                .clientUpdateByPrimaryKeyWithoutBLOBsMethodGenerated(method,
+                .clientBatchUpdateMethodGenerated(method,
                         interfaze, introspectedTable)) {
             addExtraImports(interfaze);
             interfaze.addImportedTypes(importedTypes);
