@@ -76,7 +76,7 @@ public class SelectPaginationByExampleWithoutBLOBsElementGenerator extends
         answer.addElement(ifElement);
 
         ifElement = new XmlElement("if"); //$NON-NLS-1$
-        ifElement.addAttribute(new Attribute("test", "offset != null and limit ！= null")); //$NON-NLS-1$ //$NON-NLS-2$
+        ifElement.addAttribute(new Attribute("test", "offset != null and limit != null")); //$NON-NLS-1$ //$NON-NLS-2$
         ifElement.addElement(new TextElement("limit #{offset} , #{limit}")); //$NON-NLS-1$
         answer.addElement(ifElement);
 
