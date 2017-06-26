@@ -39,10 +39,8 @@
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
-        <!--<plugin type="org.mybatis.generator.plugins.PaginationPlugin"/>-->
 
         <commentGenerator>
-            <!-- 去除自动生成的注释 -->
             <property name="suppressAllComments" value="false"/>
             <property name="suppressDate" value="false"/>
         </commentGenerator>
@@ -52,9 +50,7 @@
                         userId="root"
                         password="Tianxing@0701">
         </jdbcConnection>
-
-        <!-- NOTE: When targetProject is set to "MAVEN", the default output is type/generated-sources/mybatis-generator -->
-
+        
         <javaModelGenerator targetPackage="test.entity"
                             targetProject="src/test/java"><!-- src/generated/java -->
             <property name="enableSubPackages" value="true"/>
