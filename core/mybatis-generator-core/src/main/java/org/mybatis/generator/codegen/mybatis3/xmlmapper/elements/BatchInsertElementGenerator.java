@@ -68,7 +68,7 @@ public class BatchInsertElementGenerator extends AbstractXmlElementGenerator {
         insertClause.append(" ("); //$NON-NLS-1$
 
         StringBuilder valuesClause = new StringBuilder();
-        valuesClause.append("values ("); //$NON-NLS-1$
+        valuesClause.append(" ("); //$NON-NLS-1$
 
         List<String> valuesClauses = new ArrayList<String>();
         List<IntrospectedColumn> columns = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns());
@@ -94,7 +94,7 @@ public class BatchInsertElementGenerator extends AbstractXmlElementGenerator {
             }
         }
 
-        insertClause.append(')');
+        insertClause.append(") values");
         answer.addElement(new TextElement(insertClause.toString()));
 
         valuesClause.append(')');
